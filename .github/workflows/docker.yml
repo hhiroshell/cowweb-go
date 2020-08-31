@@ -1,0 +1,25 @@
+name: Docker build and push
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Description'
+        required: true
+        default: 'Test'
+
+jobs:
+  push_to_registry:
+    name: Build and Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: hhiroshell/cowweb-go/cowweb
+          tag_with_ref: true
