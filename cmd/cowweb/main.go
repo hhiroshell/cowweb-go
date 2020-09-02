@@ -47,7 +47,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Fprintf(w, say)
+		fmt.Fprintln(w, say)
 	})
 
 	http.HandleFunc("/think", func(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +59,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Fprintf(w, say)
+		fmt.Fprintln(w, say)
 	})
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
