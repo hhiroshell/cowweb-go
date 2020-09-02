@@ -19,7 +19,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
-          password: ${{ secrets.CA_PAT }}
+          password: ${{ secrets.CR_PAT }}
           registry: ghcr.io
-          repository: hhiroshell/cowweb-go
+          repository: hhiroshell/cowweb-go/cowweb
           tag_with_ref: true
