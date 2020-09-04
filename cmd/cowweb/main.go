@@ -15,6 +15,7 @@ import (
 
 const (
 	defaultMoosage = "Moo!"
+	defaultWaitMillisecond = 5
 	envCowwebWaitMillisecondKey = "COWWEB_WAIT_MILLISECOND"
 )
 
@@ -91,7 +92,7 @@ func main() {
 		wenv := os.Getenv(envCowwebWaitMillisecondKey)
 		wms, err := strconv.ParseInt(wenv, 10, 0)
 		if err != nil {
-			wms = 5
+			wms = defaultWaitMillisecond
 		}
 		ctx, _ := context.WithTimeout(context.Background(), time.Duration(wms) * time.Millisecond)
 		waitWithLoad(ctx)
