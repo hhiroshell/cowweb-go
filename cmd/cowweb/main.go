@@ -52,13 +52,15 @@ func randomCowType() cowsay.Option {
 }
 
 func randomCowTypeWithLoad() cowsay.Option {
-	randInts := []int{}
+	//randInts := []int{}
 	for i := 0; i < load; i++ {
 		for j := 0; j < load; j++ {
-			randInts = append(randInts, rand.Intn(len(cows)))
+			//randInts = append(randInts, rand.Intn(len(cows)))
+			rand.Intn(len(cows))
 		}
 	}
-	return cowsay.Type(cows[randInts[rand.Intn(load)]])
+	//return cowsay.Type(cows[randInts[rand.Intn(load)]])
+	return cowsay.Type(cows[rand.Intn(len(cows))])
 }
 
 //func waitWithLoad(ctx context.Context) {
