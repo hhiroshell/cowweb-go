@@ -2,13 +2,14 @@ FROM golang:1.14-buster as builder
 
 WORKDIR /build
 
+COPY ./main.go ./main.go
 COPY ./cmd ./cmd
-#COPY ./pkg ./pkg
+COPY ./pkg ./pkg
 COPY ./go.mod ./go.mod
 
 # create dependency cache for repeated build during local development.
 RUN go mod download
-RUN go build -v -o ./cowweb ./cmd/cowweb/main.go
+RUN go build -v -o ./cowweb .
 
 FROM debian:buster-slim
 
