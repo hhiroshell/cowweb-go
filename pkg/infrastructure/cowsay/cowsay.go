@@ -10,11 +10,9 @@ import (
 
 const (
 	defaultMoosage = "Moo!"
-	defaultLoad = 1024
 )
 
 var cows []string
-var load int
 
 func init() {
 	var infelicities = [3]string{"head-in", "telebears", "sodomized"}
@@ -34,7 +32,7 @@ func init() {
 	}
 }
 
-type Cowsay struct {}
+type Cowsay struct{}
 
 func NewCowsay() service.CowService {
 	return &Cowsay{}
@@ -59,9 +57,6 @@ type SlowCowsay struct {
 }
 
 func NewSlowCowsay(load int) service.CowService {
-	if load <= 0 {
-		load = defaultLoad
-	}
 	return &SlowCowsay{load: load}
 }
 
@@ -69,8 +64,8 @@ func (c *SlowCowsay) Say(moosage string) (string, error) {
 	if moosage == "" {
 		moosage = defaultMoosage
 	}
-	for i := 0; i < load; i++ {
-		for j := 0; j < load; j++ {
+	for i := 0; i < c.load; i++ {
+		for j := 0; j < c.load; j++ {
 			rand.Intn(len(cows))
 		}
 	}
@@ -81,8 +76,8 @@ func (c *SlowCowsay) Think(moosage string) (string, error) {
 	if moosage == "" {
 		moosage = defaultMoosage
 	}
-	for i := 0; i < load; i++ {
-		for j := 0; j < load; j++ {
+	for i := 0; i < c.load; i++ {
+		for j := 0; j < c.load; j++ {
 			rand.Intn(len(cows))
 		}
 	}
