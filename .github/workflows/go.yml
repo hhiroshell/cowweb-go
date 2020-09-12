@@ -35,8 +35,8 @@ jobs:
             dep ensure
         fi
 
-    - name: Build
-      run: ginkgo -v ./...
+    - name: Test
+      run: $GOPATH/bin/ginkgo -v ./...
 
     - name: Build
       run: go build -v .
