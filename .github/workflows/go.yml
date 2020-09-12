@@ -29,18 +29,14 @@ jobs:
 
     - name: Get dependencies
       run: |
-        pwd
         go get -v -t -d ./...
         if [ -f Gopkg.toml ]; then
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
-        ls /home/runner/go
 
     - name: Test
-      run: $GOPATH/bin/ginkgo -v ./...
-      env:
-        GOPATH: /home/runner/go
+      run: go test -v ./...
 
     - name: Build
       run: go build -v .
