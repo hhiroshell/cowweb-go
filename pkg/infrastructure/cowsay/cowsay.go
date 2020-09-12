@@ -13,9 +13,15 @@ func NewCowsay() service.CowService {
 }
 
 func (c *Cowsay) Say(moosage string) (string, error) {
+	if moosage == "" {
+		moosage = defaultMoosage
+	}
 	return cowsay.Say(cowsay.Phrase(moosage), randomCowType())
 }
 
 func (c *Cowsay) Think(moosage string) (string, error) {
+	if moosage == "" {
+		moosage = defaultMoosage
+	}
 	return cowsay.Say(cowsay.Phrase(moosage), randomCowType(), cowsay.Thinking())
 }

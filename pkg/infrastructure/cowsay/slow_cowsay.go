@@ -21,6 +21,9 @@ func (c *SlowCowsay) Say(moosage string) (string, error) {
 			rand.Intn(len(cows))
 		}
 	}
+	if moosage == "" {
+		moosage = defaultMoosage
+	}
 	return cowsay.Say(cowsay.Phrase(moosage), randomCowType())
 }
 
@@ -29,6 +32,9 @@ func (c *SlowCowsay) Think(moosage string) (string, error) {
 		for j := 0; j < c.load; j++ {
 			rand.Intn(len(cows))
 		}
+	}
+	if moosage == "" {
+		moosage = defaultMoosage
 	}
 	return cowsay.Say(cowsay.Phrase(moosage), randomCowType(), cowsay.Thinking())
 }

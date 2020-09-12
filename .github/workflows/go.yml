@@ -36,4 +36,7 @@ jobs:
         fi
 
     - name: Build
+      run: ginkgo -v ./...
+
+    - name: Build
       run: go build -v .

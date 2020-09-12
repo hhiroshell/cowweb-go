@@ -6,6 +6,8 @@ import (
 	cowsay "github.com/Code-Hex/Neo-cowsay"
 )
 
+const defaultMoosage = "Moo!"
+
 var cows []string
 
 func init() {
