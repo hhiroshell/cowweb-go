@@ -35,11 +35,12 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
+        ls
 
     - name: Test
       run: $GOPATH/bin/ginkgo -v ./...
       env:
-        GOPATH: /home/runner/work/cowweb-go/go
+        GOPATH: /home/runner/work/cowweb-go/cowweb-go/go
 
     - name: Build
       run: go build -v .
