@@ -40,7 +40,7 @@ jobs:
     - name: Test
       run: $GOPATH/bin/ginkgo -v ./...
       env:
-        GOPATH: /home/runner/work/cowweb-go/cowweb-go/go
+        GOPATH: /home/runner/go
 
     - name: Build
       run: go build -v .
