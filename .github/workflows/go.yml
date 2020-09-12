@@ -26,6 +26,19 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        path: go/src/github.com/hhiroshell/cowweb-go
+
+    - name: Debug
+      run: |
+        pwd
+        echo ${HOME}
+        echo ${GITHUB_WORKSPACE}
+        echo ${GOPATH}
+        echo ${GOROOT}
+      env:
+        GOPATH: /home/runner/work/cowweb-go/go
 
     - name: Get dependencies
       run: |
@@ -37,6 +50,8 @@ jobs:
 
     - name: Test
       run: $GOPATH/bin/ginkgo -v ./...
+      env:
+        GOPATH: /home/runner/work/cowweb-go/go
 
     - name: Build
       run: go build -v .
