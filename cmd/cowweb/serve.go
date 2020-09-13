@@ -1,7 +1,12 @@
 package cowweb
 
 import (
+	"context"
 	"log"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/spf13/cobra"
 
@@ -36,6 +41,15 @@ var serve = &cobra.Command{
 		if error != nil {
 			log.Fatal(error)
 		}
+
+		sig := make(chan os.Signal)
+		signal.Notify(sig, syscall.SIGTERM, syscall.SIGINT)
+		go func() {
+			defer close(sig)
+			<-sig
+			ctx, _ := context.WithTimeout(context.Background(), time.Second*30)
+			server.Shutdown(ctx)
+		}()
 		log.Fatal(server.ListenAndServe())
 	},
 }
