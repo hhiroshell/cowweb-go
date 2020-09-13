@@ -32,7 +32,7 @@ var _ = Describe("the cowsay package", func() {
 				Expect(strings.Contains(cow, expect)).To(BeTrue())
 			})
 			slow := b.Time("runtime", func() {
-				sc := &SlowCowsay{load: 128}
+				sc := &SlowCowsay{load: 512}
 				cow, _ := sc.Say("")
 				Expect(strings.Contains(cow, expect)).To(BeTrue())
 			})
@@ -64,7 +64,7 @@ var _ = Describe("the cowsay package", func() {
 				Expect(strings.Contains(cow, expect)).To(BeTrue())
 			})
 			slow := b.Time("runtime", func() {
-				sc := &SlowCowsay{load: 128}
+				sc := &SlowCowsay{load: 512}
 				cow, _ := sc.Think("")
 				Expect(strings.Contains(cow, expect)).To(BeTrue())
 			})
