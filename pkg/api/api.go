@@ -3,15 +3,22 @@ package api
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/hhiroshell/cowweb/pkg/domain/service"
 )
 
-func NewAPIServer(cowsay service.CowService) *http.Server {
+func NewAPIServer(cowsay service.CowService, port int) (*http.Server, error) {
+	if cowsay == nil {
+		return nil, fmt.Errorf("illegal argument. cowsay == nil")
+	}
+	if port <= 0 {
+		return nil, fmt.Errorf("illegal argument. port <= 0")
+	}
 	h := &handlers{cowsay: cowsay}
 	http.HandleFunc("/say", h.say)
 	http.HandleFunc("/think", h.think)
-	return &http.Server{Addr: ":8080"}
+	return &http.Server{Addr: ":" + strconv.Itoa(port)}, nil
 }
 
 type handlers struct {
