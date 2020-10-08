@@ -18,6 +18,7 @@ func NewAPIServer(cowsay service.CowService, port int) (*http.Server, error) {
 	h := &handlers{cowsay: cowsay}
 	http.HandleFunc("/say", h.say)
 	http.HandleFunc("/think", h.think)
+	http.HandleFunc("/health", h.health)
 	return &http.Server{Addr: ":" + strconv.Itoa(port)}, nil
 }
 
@@ -43,4 +44,8 @@ func (a *handlers) think(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprintln(w, cow)
+}
+
+func (a *handlers) health(w http.ResponseWriter, r *http.Request) {
+	return
 }
