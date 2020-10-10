@@ -3,10 +3,10 @@ package cowweb
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/spf13/cobra"
 
@@ -39,21 +39,25 @@ var serve = &cobra.Command{
 		} else {
 			svc = cowsay.NewCowsay()
 		}
-		server, error := api.NewAPIServer(svc, *port)
-		if error != nil {
-			log.Fatal(error)
+		server, err := api.NewAPIServer(svc, *port)
+		if err != nil {
+			log.Fatal(err)
 		}
 
+		go func() {
+			if err := server.ListenAndServe(); err != http.ErrServerClosed {
+				log.Fatal(err)
+			}
+		}()
+
+		sig := make(chan os.Signal)
+		defer close(sig)
+		signal.Notify(sig, syscall.SIGTERM, os.Interrupt)
+		<-sig
 		if *shutdownGracefully {
-			sig := make(chan os.Signal)
-			signal.Notify(sig, syscall.SIGTERM, syscall.SIGINT)
-			go func() {
-				defer close(sig)
-				<-sig
-				ctx, _ := context.WithTimeout(context.Background(), time.Second*30)
-				server.Shutdown(ctx)
-			}()
+			if err := server.Shutdown(context.Background()); err != nil {
+				log.Print(err)
+			}
 		}
-		log.Fatal(server.ListenAndServe())
 	},
 }
