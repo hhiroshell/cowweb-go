@@ -16,6 +16,7 @@ func NewAPIServer(cowsay service.CowService, port int) (*http.Server, error) {
 		return nil, fmt.Errorf("illegal argument. port <= 0")
 	}
 	h := &handlers{cowsay: cowsay}
+	http.HandleFunc("/", h.say)
 	http.HandleFunc("/say", h.say)
 	http.HandleFunc("/think", h.think)
 	http.HandleFunc("/health", h.health)
