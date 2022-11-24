@@ -28,7 +28,7 @@ type handlers struct {
 }
 
 func (a *handlers) say(w http.ResponseWriter, r *http.Request) {
-	moosage := r.URL.Query().Get("m")
+	moosage := r.URL.Query().Get("moosage")
 	cow, err := a.cowsay.Say(moosage)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
@@ -38,7 +38,7 @@ func (a *handlers) say(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *handlers) think(w http.ResponseWriter, r *http.Request) {
-	moosage := r.URL.Query().Get("m")
+	moosage := r.URL.Query().Get("moosage")
 	cow, err := a.cowsay.Think(moosage)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusServiceUnavailable)
