@@ -54,10 +54,12 @@ var serve = &cobra.Command{
 		defer close(sig)
 		signal.Notify(sig, syscall.SIGTERM, os.Interrupt)
 		<-sig
+		log.Println("start to shutdown...")
 		if *shutdownGracefully {
 			if err := server.Shutdown(context.Background()); err != nil {
 				log.Print(err)
 			}
 		}
+		log.Println("bye.")
 	},
 }
